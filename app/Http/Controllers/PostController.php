@@ -19,7 +19,7 @@ class PostController extends Controller
     {
         try {
 
-            return response()->json(['data' => Post::latest()->get()]);
+            return response()->json(['data' => Post::with('detail')->latest()->get()]);
 
         } catch (\Exception $e) {
             return response()->json([
@@ -28,7 +28,33 @@ class PostController extends Controller
         }
     }
 
-    public function show($id)
+    public function get()
+    {
+        try {
+
+            return response()->json(['data' => Post::with('detail')->latest()->get()]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function getId(String $id)
+    {
+        try {
+            $post = Post::with('detail')->where('id', $id)->orWhere('slug', $id)->firstOrFail();
+            return response()->json(['data' => $post]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function show(String $id)
     {
         try {
             $post = Post::with('detail')->where('id', $id)->orWhere('slug', $id)->firstOrFail();
@@ -56,7 +82,7 @@ class PostController extends Controller
                 $id = Auth::user()->id;
                 $originalName = $data['cover_image']->getClientOriginalName();
                 $path = "app/images/$id/".$originalName;
-                Storage::disk('local')->put($path, file_get_contents($data['cover_image']));
+                Storage::disk('public')->put($path, file_get_contents($data['cover_image']));
             }
 
             $data['slug'] = Str::slug($data['title']);
@@ -114,7 +140,7 @@ class PostController extends Controller
                     $originalName = $data['cover_image']->getClientOriginalName();
                     $path = "app/images/$userId/" . $originalName;
 
-                    Storage::disk('local')->put($path, file_get_contents($data['cover_image']));
+                    Storage::disk('public')->put($path, file_get_contents($data['cover_image']));
                 }
 
                 $data['slug'] = Str::slug($data['title']);
@@ -137,7 +163,7 @@ class PostController extends Controller
                 $originalName = $data['cover_image']->getClientOriginalName();
                 $userId = Auth::user()->id;
                 $path = "app/images/$userId/".$originalName;
-                Storage::disk('local')->put($path, file_get_contents($data['cover_image']));
+                Storage::disk('public')->put($path, file_get_contents($data['cover_image']));
 
                 $data['slug'] = Str::slug($data['title']);
 
