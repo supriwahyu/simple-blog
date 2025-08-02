@@ -130,7 +130,7 @@ class PostController extends Controller
             $data = $request->validate([
                 'title' => 'sometimes|required|string|max:255',
                 'excerpt' => 'nullable|string',
-                'cover_image' => 'nullable|image|max:2048',
+                'cover_image' => 'nullable',
                 'content' => 'required|string',
             ]);
 
@@ -155,7 +155,7 @@ class PostController extends Controller
                 $foundDetail->update([
                     'title' => $data['title'],
                     'excerpt' => $data['excerpt'],
-                    'cover_image' => $path ?? $foundDetail->cover_image,
+                    'cover_image' => $path ?? $found->cover_image,
                     'slug' => $data['slug'],
                     'content' => $data['content'],
                 ]);
@@ -175,7 +175,7 @@ class PostController extends Controller
                     [
                         'title' => $data['title'],
                         'excerpt' => $data['excerpt'],
-                        'cover_image' => $path ?? $foundDetail->cover_image,
+                        'cover_image' => $path ?? $found->cover_image,
                         'slug' => $data['slug'],
                     ]
                 );
