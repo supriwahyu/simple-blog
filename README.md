@@ -22,6 +22,7 @@ DB_DATABASE=example_name
 DB_USERNAME=example_user
 DB_PASSWORD=example_password
 
+- setelah semua set up sudah selesai, run di cli "php artisan migrate:refresh --seed"
 - php artisan serve untuk mengaktifkan
 
 ## About Laravel
