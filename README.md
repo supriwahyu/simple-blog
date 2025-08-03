@@ -7,6 +7,23 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Langkah - langkah penginstalan backend:
+
+- clone repository
+- cd repository
+- composer install di current folder repository
+- cp .env.example .env
+- pastikan konfigurasi database sudah benar
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=example_name
+DB_USERNAME=example_user
+DB_PASSWORD=example_password
+
+- php artisan serve untuk mengaktifkan
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
